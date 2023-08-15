@@ -17,16 +17,19 @@ chrome.runtime.onInstalled.addListener(async ({ reason }) => {
 //Now we create the actual alarm, which works kind of like a cycling event.
 //Here we want to create the alarm, and every x minutes (later I will make an option to change this value) we fetch the token prices and compare.
 
-chrome.runtime.onStartup.addListener(async() => {
-    await chrome.alarms.create('WoW-Token-Fetch', {
+
+    console.log("Adding alarm.")
+    chrome.alarms.create('WoW-Token-Fetch', {
         periodInMinutes: 5
-    });
-})
+    }).then(() => chrome.alarms.get("WoW-Token-Fetch").then((alarm) => console.log(`${alarm.name} has been created.`)))
 
 chrome.alarms.onAlarm.addListener(async (alarm) => {
     if (alarm.name === "WoW-Token-Fetch") {
         const tokenPriceJson = await fetch("https://wowtokenprices.com/current_prices.json", {
-            method: "GET"
+            method: "GET",
+                headers:{
+                    "Cache-Control": "no-store"
+                }
         }).then(resp => resp.json())
 
         let desiredRegion;
