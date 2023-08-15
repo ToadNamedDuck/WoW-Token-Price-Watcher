@@ -1,0 +1,17 @@
+{
+  "manifest_version": 3,
+  "name": "Pocket Watcher",
+  "description": "Watches the price of WoW tokens and alerts you when the price falls below a specific threshold.",
+  "version": "1.0",
+  "action": {
+    "default_popup": "hello.html",
+    "default_icon": "hello_extensions.png"
+  },
+  "permissions": [
+    "notifications",
+    "alarms"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  }
+}
