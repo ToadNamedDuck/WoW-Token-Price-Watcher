@@ -4,22 +4,31 @@ document.addEventListener("click", e => {
         e.preventDefault();
         e.stopPropagation();
 
+        let setValue;
+        let setRegion;
+
             chrome.storage.local.set({"goldCap": document.getElementById("pw-gold-input-field").value})
             .then(() => chrome.storage.local.set({"wowRegion": document.getElementById("pw-preferred-region-select").value}))
-            .then(() => {
-                const setValue = goldValueGetter();
-                const setRegion = regionValueGetter();
-                console.log(`User will be notified when WoW Token Price in "${setRegion}" region is at or below ${setValue} gold.`)
+            .then(async() => {
+                setValue = await goldValueGetter();
+                setRegion = await regionValueGetter();
             })
+            .then(() => console.log(`User will be notified when WoW Token Price in "${setRegion}" region is at or below ${setValue} gold.`))
     }
 })
 
 async function goldValueGetter(){
-    const currentGoldValue = await chrome.storage.local.get("goldCap");
-    return currentGoldValue;
+    let goldValue;
+    await chrome.storage.local.get("goldCap").then(value => {
+        goldValue = value
+    })
+    return goldValue.goldCap;
 }
 
 async function regionValueGetter(){
-    const currentRegion = await chrome.storage.local.get("wowRegion");
-    return currentRegion;
+    let selectedRegion;
+    await chrome.storage.local.get("wowRegion").then(region => {
+        selectedRegion = region
+    })
+    return selectedRegion.wowRegion
 }

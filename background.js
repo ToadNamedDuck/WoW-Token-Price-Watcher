@@ -1,4 +1,3 @@
-import { getTokenPrices } from "./modules/API-Manager";
 
 chrome.runtime.onInstalled.addListener(async ({reason}) => {
     if(reason !== "install"){
@@ -23,7 +22,10 @@ chrome.runtime.onInstalled.addListener(async ({reason}) => {
 
 chrome.alarms.onAlarm.addListener(async (alarm) => {
     if(alarm.name === "WoW-Token-Fetch"){
-        const tokenPriceJson = await getTokenPrices();
+        const tokenPriceJson = await fetch("https://wowtokenprices.com/current_prices.json", {
+            method: "GET"
+        }).then(resp => resp.json())
+
         let desiredRegion;
         let goldLimit;
         let selectedRegionCurrentPrice = null;
