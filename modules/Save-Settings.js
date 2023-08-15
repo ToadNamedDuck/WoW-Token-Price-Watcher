@@ -4,8 +4,8 @@ document.addEventListener("click", e => {
         e.preventDefault();
         e.stopPropagation();
 
-            chrome.storage.local.set({"gold-cap": document.getElementById("pw-gold-input-field").value})
-            .then(() => chrome.storage.local.set({"wow-region": document.getElementById("pw-preferred-region-select").value}))
+            chrome.storage.local.set({"goldCap": document.getElementById("pw-gold-input-field").value})
+            .then(() => chrome.storage.local.set({"wowRegion": document.getElementById("pw-preferred-region-select").value}))
             .then(() => {
                 const setValue = goldValueGetter();
                 const setRegion = regionValueGetter();
@@ -15,11 +15,11 @@ document.addEventListener("click", e => {
 })
 
 async function goldValueGetter(){
-    const currentGoldValue = await chrome.storage.local.get("gold-cap");
+    const currentGoldValue = await chrome.storage.local.get("goldCap");
     return currentGoldValue;
 }
 
 async function regionValueGetter(){
-    const currentRegion = await chrome.storage.local.get("wow-region");
+    const currentRegion = await chrome.storage.local.get("wowRegion");
     return currentRegion;
 }
