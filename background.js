@@ -32,16 +32,18 @@ chrome.alarms.onAlarm.addListener(async (alarm) => {
         let selectedRegionCurrentPrice = null;
 
         await chrome.storage.local.get("wowRegion").then((obj) => desiredRegion = obj.wowRegion)
-            .then(() => chrome.storage.local.get("goldCap").then((obj) => goldLimit = obj.goldCap))
+            .then(async() => await chrome.storage.local.get("goldCap").then((obj) => goldLimit = obj.goldCap))
             .then(() => {
                 if (tokenPriceJson.hasOwnProperty(desiredRegion)) {
                     selectedRegionCurrentPrice = tokenPriceJson[desiredRegion].current_price;
+                    console.log(selectedRegionCurrentPrice)
+                    console.log(goldLimit)
                 }
-            }).then(() => {
+            }).then(async() => {
                 if (selectedRegionCurrentPrice !== null) {
                     //Compare price, add our alert
                     if (parseInt(selectedRegionCurrentPrice) <= parseInt(goldLimit)) {
-                        chrome.notifications.create("PocketWatcherTokenNotification", {
+                       await chrome.notifications.create("PocketWatcherTokenNotification", {
                             title: "Token Price Below Threshold",
                             message: `Current WoW Token Prices in Region "${desiredRegion}" is ${selectedRegionCurrentPrice} gold.`,
                             priority: 2,

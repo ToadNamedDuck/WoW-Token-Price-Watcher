@@ -15,5 +15,6 @@
     "service_worker": "background.js",
     "type": "module"
   },
-  "options_page": "pw-settings.html" 
+  "options_page": "pw-settings.html",
+  "host_permissions": ["https://wowtokenprices.com/current_prices.json"]
 }
