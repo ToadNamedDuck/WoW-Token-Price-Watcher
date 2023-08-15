@@ -16,13 +16,15 @@ chrome.runtime.onInstalled.addListener(async ({ reason }) => {
 
 //Now we create the actual alarm, which works kind of like a cycling event.
 //Here we want to create the alarm, and every x minutes (later I will make an option to change this value) we fetch the token prices and compare.
-chrome.alarms.create('WoW-Token-Fetch', {
-    periodInMinutes: 5
-});
+
+chrome.runtime.onStartup.addListener(async() => {
+    await chrome.alarms.create('WoW-Token-Fetch', {
+        periodInMinutes: 5
+    });
+})
 
 chrome.alarms.onAlarm.addListener(async (alarm) => {
     if (alarm.name === "WoW-Token-Fetch") {
-        console.log("alarm fired")
         const tokenPriceJson = await fetch("https://wowtokenprices.com/current_prices.json", {
             method: "GET"
         }).then(resp => resp.json())
@@ -36,8 +38,6 @@ chrome.alarms.onAlarm.addListener(async (alarm) => {
             .then(() => {
                 if (tokenPriceJson.hasOwnProperty(desiredRegion)) {
                     selectedRegionCurrentPrice = tokenPriceJson[desiredRegion].current_price;
-                    console.log(selectedRegionCurrentPrice)
-                    console.log(goldLimit)
                 }
             }).then(async() => {
                 if (selectedRegionCurrentPrice !== null) {

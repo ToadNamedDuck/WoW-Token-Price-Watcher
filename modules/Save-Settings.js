@@ -13,7 +13,7 @@ document.addEventListener("click", e => {
                 setValue = await goldValueGetter();
                 setRegion = await regionValueGetter();
             })
-            .then(() => console.log(`User will be notified when WoW Token Price in "${setRegion}" region is at or below ${setValue} gold.`))
+            .then(() => window.alert(`User will be notified when WoW Token Price in "${setRegion}" region is at or below ${setValue} gold.`))
     }
 })
 
