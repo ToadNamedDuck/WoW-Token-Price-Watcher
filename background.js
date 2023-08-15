@@ -37,7 +37,18 @@ chrome.alarms.onAlarm.addListener(async (alarm) => {
         })
         
         if(selectedRegionCurrentPrice !== null){
-            //Compare price, add our alarm
+            //Compare price, add our alert
+            if(parseInt(selectedRegionCurrentPrice) <= parseInt(goldLimit)){
+                chrome.notifications.create("PocketWatcherTokenNotification", {
+                    title: "Token Price Below Threshold",
+                    message: `Current WoW Token Prices in Region "${desiredRegion}" is ${selectedRegionCurrentPrice} gold.`,
+                    priority: 2,
+                    silent: false,
+                    type: "basic",
+                    eventTime: Date.now()
+                })
+            }
+
         }
 
     }
