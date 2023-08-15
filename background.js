@@ -28,7 +28,7 @@ chrome.alarms.onAlarm.addListener(async (alarm) => {
         const tokenPriceJson = await fetch("https://wowtokenprices.com/current_prices.json", {
             method: "GET",
                 headers:{
-                    "Cache-Control": "no-store"
+                    "Cache-Control": "no-cache"
                 }
         }).then(resp => resp.json())
 
