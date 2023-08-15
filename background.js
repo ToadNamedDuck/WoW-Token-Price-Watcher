@@ -49,7 +49,8 @@ chrome.alarms.onAlarm.addListener(async (alarm) => {
                             priority: 2,
                             silent: false,
                             type: "basic",
-                            eventTime: Date.now()
+                            eventTime: Date.now(),
+                            iconUrl: "pictures/icon128.png"
                         })
                     }
                 }

@@ -16,5 +16,11 @@
     "type": "module"
   },
   "options_page": "pw-settings.html",
-  "host_permissions": ["https://wowtokenprices.com/current_prices.json"]
+  "host_permissions": ["https://wowtokenprices.com/current_prices.json"],
+  "icons": {
+    "16": "pictures/icon16.png",
+    "32": "pictures/icon32.png",
+    "48": "pictures/icon48.png",
+    "128": "pictures/icon128.png"
+  }
 }
