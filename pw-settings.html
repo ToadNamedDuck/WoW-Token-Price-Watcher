@@ -1,26 +1,34 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <script type="module" src="modules\Save-Settings.js"></script>
-    </head>
-    <body>
-        <div>
-            <h3>Settings for WoW Token Price Watcher</h3>
+
+<head>
+    <script type="module" src="modules\Save-Settings.js"></script>
+    <link rel="stylesheet" href="pw-css.css">
+</head>
+
+<body id="pw-body">
+    <div>
+        <h1>Settings for WoW Token Price Watcher</h1>
+        <div class="pw-form-group">
             <label for="pw-gold-input-field">Maximum Price Threshold</label>
-            <input id="pw-gold-input-field" type="number" placeholder="Alerted when price under this amount."/>
-            <div></div>
-            <label for="pw-preferred-region-select">Select your preferred region.</label>
-            <select id="pw-preferred-region-select">
+            <input class="pw-input" id="pw-gold-input-field" type="number"
+                placeholder="Alerted when price under this amount." />
+        </div>
+        <label for="pw-preferred-region-select">Select your preferred region.</label>
+        <div class="pw-form-group">
+            <select class="pw-input" id="pw-preferred-region-select">
                 <option value="us">United States</option>
                 <option value="eu">Europe</option>
                 <option value="china">China</option>
                 <option value="korea">Korea</option>
                 <option value="taiwan">Taiwan</option>
             </select>
-            <div></div>
+        </div>
+        <div class="pw-form-group">
             <label for="refreshTimeSelect">How often to check the price of a WoW token.</label>
-            <select id="refreshTimeSelect">
+            <select class="pw-input" id="refreshTimeSelect">
                 <option value="10">10 Minutes</option>
+                <option value="15">15 Minutes</option>
                 <option value="20">20 Minutes</option>
                 <option value="30">30 Minutes</option>
                 <option value="60">1 Hour</option>
@@ -28,8 +36,9 @@
                 <option value="360">6 Hours</option>
                 <option value="720">12 Hours</option>
             </select>
-            <div></div>
-            <button type="button" id="pw-save-gold-max" >Save</button>
         </div>
-    </body>
+        <button type="button" id="pw-save-gold-max">Save</button>
+    </div>
+</body>
+
 </html>
