@@ -1,10 +1,8 @@
 //async for creating the timer with initialized values
 async function initialTimerCreate() {
-    console.log("creating a timer")
     await chrome.alarms.get("WoW-Token-Fetch").then(async (alarm) => {
         if (alarm === undefined) {
             await chrome.storage.local.get("refreshPeriodInMinutes").then(async obj => {
-                console.log(obj)
                 await chrome.alarms.create('WoW-Token-Fetch', {
                     periodInMinutes: parseInt(obj.refreshPeriodInMinutes)
                 }
@@ -51,7 +49,7 @@ chrome.runtime.onStartup.addListener(async () => {
                 
                 await chrome.alarms.create("WoW-Token-Fetch", {
                     periodInMinutes: timeInMinutes
-                }).then((alarm) => console.log(alarm));
+                });
             }
         })
     })
@@ -62,14 +60,11 @@ chrome.runtime.onMessage.addListener(async (message) => {
         return; //We return here because obviously this isn't the message that we sent.
     }
     if (message.event === "Token-Price-Watcher-Setting-Changes") {
-        console.log("received message");
         chrome.alarms.clear("WoW-Token-Fetch");
         //Make the new alarm with updated settings.
-        console.log("Alarm deleted");
         chrome.alarms.create('WoW-Token-Fetch', {
             periodInMinutes: parseInt(await chrome.storage.local.get("refreshPeriodInMinutes").then((obj) => obj.refreshPeriodInMinutes))
-        }).then(() => chrome.alarms.get("WoW-Token-Fetch").then((alarm) => console.log(alarm)))
-        console.log("new alarm created.")
+        });
     }
 })
 
