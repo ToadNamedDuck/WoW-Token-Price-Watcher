@@ -14,8 +14,8 @@
             <input class="pw-input" id="pw-gold-input-field" type="number"
                 placeholder="Alerted when price under this amount." />
         </div>
-        <label for="pw-preferred-region-select">Select your preferred region.</label>
         <div class="pw-form-group">
+            <label for="pw-preferred-region-select">Select your preferred region.</label>
             <select class="pw-input" id="pw-preferred-region-select">
                 <option value="us">United States</option>
                 <option value="eu">Europe</option>
@@ -37,8 +37,15 @@
                 <option value="720">12 Hours</option>
             </select>
         </div>
-        <button type="button" id="pw-save-gold-max">Save</button>
+        <div class="pw-form-group">
+            <div class="pw-button-group">                
+                <button class="pw-button" type="button" id="pw-save-gold-max">Save</button>
+            </div>
+        </div>
     </div>
+    <footer class="pw-footer">
+        Please visit <a href="https://wowtokenprices.com">WoWTokenPrices.com</a> for more details!
+    </footer>
 </body>
 
 </html>
