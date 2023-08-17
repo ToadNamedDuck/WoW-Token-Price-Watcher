@@ -6,14 +6,18 @@ document.addEventListener("click", e => {
 
         let setValue;
         let setRegion;
+        let setTimer;
 
             chrome.storage.local.set({"goldCap": document.getElementById("pw-gold-input-field").value})
             .then(() => chrome.storage.local.set({"wowRegion": document.getElementById("pw-preferred-region-select").value}))
+            .then(() => chrome.storage.local.set({"refreshPeriodInMinutes": document.getElementById("refreshTimeSelect").value}))
             .then(async() => {
                 setValue = await goldValueGetter();
                 setRegion = await regionValueGetter();
+                setTimer = await refreshTimerGetter();
             })
-            .then(() => window.alert(`User will be notified when WoW Token Price in "${setRegion}" region is at or below ${setValue} gold.`))
+            .then(async () => await chrome.runtime.sendMessage({event: "Token-Price-Watcher-Setting-Changes"}))//Want to send out an event to update/build a new alarm.
+            .then(() => window.alert(`User will be notified when WoW Token Price in "${setRegion}" region is at or below ${setValue} gold. Prices will be checked every ${setTimer} minutes.`))
     }
 })
 
@@ -31,4 +35,12 @@ async function regionValueGetter(){
         selectedRegion = region
     })
     return selectedRegion.wowRegion
+}
+
+async function refreshTimerGetter(){
+    let refreshTimer;
+    await chrome.storage.local.get("refreshPeriodInMinutes").then((obj) => {
+        refreshTimer = obj.refreshPeriodInMinutes
+    });
+    return refreshTimer;
 }
