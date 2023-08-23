@@ -17,7 +17,7 @@ document.addEventListener("click", e => {
                 setTimer = await refreshTimerGetter();
             })
             .then(async () => await chrome.runtime.sendMessage({event: "Token-Price-Watcher-Setting-Changes"}))//Want to send out an event to update/build a new alarm.
-            .then(() => window.alert(`User will be notified when WoW Token Price in "${setRegion}" region is at or below ${setValue} gold. Prices will be checked every ${setTimer} minutes.`))
+            .then(() => window.alert(`Watching for WoW Tokens in "${setRegion}" region below ${setValue} gold. Prices will be checked every ${setTimer} minutes.`))
     }
 })
 

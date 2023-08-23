@@ -38,24 +38,24 @@ chrome.runtime.onInstalled.addListener(async ({ reason }) => {
 //Make an alarm on startup, only if there isn't one with the same name. (which means we don't immediately replace the alarm if this is ran during install. lol)
 
 chrome.runtime.onStartup.addListener(async () => {
-    await chrome.alarms.get("WoW-Token-Fetch").then(async(alarm) => {
-        if(alarm !== undefined){
-            return;
-        }
-        
-        await chrome.storage.local.get("refreshPeriodInMinutes").then(async (obj) => {
-            if(obj !== undefined){
-                const timeInMinutes = obj.refreshPeriodInMinutes
-                
-                await chrome.alarms.create("WoW-Token-Fetch", {
-                    periodInMinutes: timeInMinutes
-                });
+
+        console.log("Starting up!");
+        await chrome.storage.local.get("refreshPeriodInMinutes").then((obj) => {
+            let timeInMinutes;
+            if(obj !== undefined || obj !== null){
+                timeInMinutes = obj.refreshPeriodInMinutes
+                }
+            else{
+                timeInMinutes = 10
             }
+                chrome.alarms.create("WoW-Token-Fetch", {
+                    periodInMinutes: timeInMinutes
+                }).then((alarm) => console.log(`${alarm.name} made.`))
         })
     })
-})
 
 chrome.runtime.onMessage.addListener(async (message) => {
+    console.log("message received")
     if (!message.event) {
         return; //We return here because obviously this isn't the message that we sent.
     }
@@ -69,6 +69,7 @@ chrome.runtime.onMessage.addListener(async (message) => {
 })
 
 chrome.alarms.onAlarm.addListener(async (alarm) => {
+    console.log("alarm fired")
     if (alarm.name === "WoW-Token-Fetch") {
         const tokenPriceJson = await fetch("https://wowtokenprices.com/current_prices.json", {
             method: "GET",

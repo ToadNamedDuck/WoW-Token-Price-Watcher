@@ -9,12 +9,12 @@
     margin: 0;
     box-sizing: border-box;
     height: 1.5rem;
-    width: 75%;
 }
 .pw-form-group{
     display: flex;
     flex-direction: column;
     margin-left: 5%;
+    margin-right: 5%;
     margin-top: 1.2rem;
 }
 h1{
